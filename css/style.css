@@ -214,7 +214,13 @@
 
 /* tablet */
 @media screen and (max-width: 999px){
-
+.carousel{
+    width: 100vw;
+    height: 100vh;
+    margin-top: -50px;
+    overflow: hidden;
+    position: relative;
+}
 
     .list .item .content{
         left: 50px;
@@ -232,7 +238,13 @@
 
 /* smart phones */
 @media screen and (max-width: 690px){
-
+.carousel{
+    width: 100vw;
+    height: 100vh;
+    margin-top: -50px;
+    overflow: hidden;
+    position: relative;
+}
     .list .item .content{
         top: 40%;
     }
