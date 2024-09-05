@@ -1,15 +1,18 @@
 var nextBtn = document.querySelector('.next'),
     prevBtn = document.querySelector('.prev'),
     carousel = document.querySelector('.carousel'),
-    list = document.querySelector('.list'), 
+    list = document.querySelector('.list'),
     items = document.querySelectorAll('.item'),
     runningTime = document.querySelector('.carousel .timeRunning'),
     dots = document.querySelectorAll('.pagination .dot'); 
 
 let timeRunning = 3000;
-let timeAutoNext = 5000;
+let timeAutoNext = 3000;
 let currentIndex = 0; 
 let runNextAuto; 
+
+let touchStartX = 0;
+let touchEndX = 0;
 
 nextBtn.onclick = function() {
     showSlider('next');
@@ -36,7 +39,7 @@ function showSlider(type) {
         currentIndex = (currentIndex - 1 + sliderItemsDom.length) % sliderItemsDom.length;
     }
 
-   
+    
     updatePagination(currentIndex);
 
     clearTimeout(runNextAuto);
@@ -79,5 +82,28 @@ startSlider();
 
 carousel.addEventListener('mouseenter', stopSlider);
 carousel.addEventListener('mouseleave', startSlider);
+
+
+carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+});
+
+carousel.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50; 
+    const swipeDistance = touchEndX - touchStartX;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+            showSlider('prev'); 
+        } else {
+            showSlider('next'); 
+        }
+    }
+}
 
 
